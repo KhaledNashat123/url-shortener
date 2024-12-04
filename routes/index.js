@@ -1,13 +1,8 @@
 const router = require('express').Router();
 const URL = require('../models/schema');
 const connection_to_database = require('../check/check');
-const express = require('express');
-
 
 connection_to_database();
-
-router.use(express.urlencoded({ extended: true }));  // For parsing form data
-router.use(express.json());  // For parsing JSON data
 
 router.get('/', async function(req,res){
     const urls = await URL.find();
@@ -43,6 +38,17 @@ router.post('/', async (req,res)=>{
         console.error("Error saving URL:", err);
         res.status(500).send("Error saving URL");
     }
+})
+
+router.get('/:aliasInput' , async function (req,res) {
+    const { aliasInput } = req.params;
+    const bothURLs = await URL.findOne({aliasInput : aliasInput})
+
+    if (!bothURLs) {
+        // Handle case where no matching shortened URL is found
+        return res.status(404).send(" aliasInput not found.");
+    }
+    res.redirect(bothURLs.urlInput)
 })
 
 module.exports = router;
