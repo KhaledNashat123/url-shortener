@@ -75,10 +75,10 @@
                 <th>Original URL</th>
                 <th>Shortened URL</th>
             </tr>
-            <% for (let url in URLs) { %>
+            <% for (let url of URLs) { %>
                 <tr>
-                    <td><a href="<%= url.LongURL%> " target="_blank"><%= url.LongURL%></a></td>
-                    <td><a href="<%= url.ShortenedURL%> " target="_blank">http://localhost:3000/<%= url.ShortenedURL%></a></td>
+                    <td><a href="<%= url.urlInput%> " target="_blank"><%= url.urlInput%></a></td>
+                    <td><a href="<%= url.aliasInput%> " target="_blank">http://localhost:3000/<%= url.aliasInput%></a></td>
                 </tr>
             <% } %>
         </table>
