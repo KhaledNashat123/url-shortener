@@ -4,9 +4,13 @@ const connection_to_database = require('../check/check');
 
 connection_to_database();
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Express' });
-});
+router.get('/', async function(req,res,next){
+    const urls = await schema.find();
+    res.render('index',{
+        title: 'Express',
+        URLs: urls
+    }
+    );
+})
 
 module.exports = router;
